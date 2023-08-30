@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tweet Generator - Generated Tweets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="dark:bg-gray-900 dark:text-gray-100">
+    <div class="mx-5">
+      <section
+        class="max-w-md mx-auto my-10 shadow-lg p-6 rounded-md sm:p-10 dark:bg-gray-900 dark:text-gray-100 border border-purple-500"
+      >
+        <div class="container py-5 mx-auto space-y-8 lg:max-w-3xl">
+          <h2 class="text-xl font-bold md:text-2xl">Generated Tweets 🔥🔥🔥</h2>
+          <div class="space-y-8">
+            <div>
+              <ul class="space-y-4" id="generatedTweets"></ul>
+            </div>
+          </div>
+        </div>
+        <p class="space-y-2 px-6 text-sm text-center dark:text-gray-400">
+          Made with ❤️ by
+          <a
+            target="_blank"
+            href="https://twitter.com/0xridwanobafunso"
+            class="hover:text-underline text-purple-800 dark:text-white"
+            >@ridwanobafunso</a
+          >.
+        </p>
+      </section>
+    </div>
+    <script>
+      let answers = JSON.parse(localStorage.getItem("answers"));
+      if (answers.length > 0) {
+        let tweets = document.getElementById("generatedTweets");
+        let html = "";
+        for (let answer of answers) {
+          html += `
+                <li class="space-y-1">
+                  <div class="flex items-center space-x-2"> 
+                    <h4 class="font-medium">
+                      ${answer}
+                    </h4>
+                  </div>
+                </li>
+            `;
+        }
+        tweets.innerHTML = html;
+      } else window.location.assign("/");
+    </script>
+  </body>
+</html>

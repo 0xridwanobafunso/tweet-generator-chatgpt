@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tweet Generator - Homepage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="dark:bg-gray-900 dark:text-gray-100">
+    <div class="mx-5">
+      <div
+        class="flex flex-col max-w-md mx-auto my-10 shadow-lg p-6 rounded-md sm:p-10 dark:bg-gray-900 dark:text-gray-100 border border-purple-500"
+      >
+        <div class="mb-8 text-center">
+          <h1 class="my-3 text-4xl font-bold">X Tweet Generator</h1>
+          <p class="text-sm dark:text-gray-400">
+            Worry less about creating contents on X 🥰🚀🤩🤪
+          </p>
+        </div>
+        <form class="space-y-5">
+          <div class="space-y-4">
+            <div>
+              <label for="email" class="block mb-2 text-sm">Content</label>
+              <textarea
+                id="content"
+                cols="30"
+                rows="4"
+                placeholder="Burna boy new album 'I Told Them'"
+                class="w-full px-3 py-2 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+              ></textarea>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <label for="password" class="text-sm">Tone</label>
+              </div>
+              <select
+                id="tone"
+                class="w-full px-3 py-2 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+              >
+                <option value="">Select an option</option>
+                <option value="disheartening">Disheartening</option>
+                <option value="accusatory">Accusatory</option>
+                <option value="worried">Worried</option>
+                <option value="curios">Curios</option>
+                <option value="suprised">Suprised</option>
+                <option value="disapproving">Disapproving</option>
+                <option value="unassuming">Unassuming</option>
+                <option value="formal">Formal</option>
+                <option value="assertive">Assertive</option>
+                <option value="confident">Confident</option>
+                <option value="appreciative">Appreciative</option>
+                <option value="concerned">Concerned</option>
+                <option value="sad">Sad</option>
+                <option value="informal">Informal</option>
+                <option value="regretful">Regretful</option>
+                <option value="encouraging">Encouraging</option>
+                <option value="egocentric">Egocentric</option>
+                <option value="joyful">Joyful</option>
+                <option value="optimistic">Optimistic</option>
+                <option value="excited">Excited</option>
+              </select>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <label for="password" class="text-sm">Number of tweets</label>
+              </div>
+              <input
+                type="number"
+                id="number_of_tweets"
+                class="w-full px-3 py-2 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                min="1"
+              />
+            </div>
+          </div>
+          <div class="space-y-6">
+            <div style="align-items: center">
+              <button
+                type="button"
+                onclick="generateTweet()"
+                class="w-full px-8 py-3 font-semibold rounded-md bg-purple-700 text-white dark:bg-purple-800 dark:text-white"
+                id="submit"
+              >
+                Generate Tweets
+              </button>
+            </div>
+            <p class="space-y-2 px-6 text-sm text-center dark:text-gray-400">
+              Made with ❤️ by
+              <a
+                target="_blank"
+                href="https://twitter.com/0xridwanobafunso"
+                class="hover:text-underline text-purple-800 dark:text-white"
+                >@ridwanobafunso</a
+              >.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+      integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      async function generateTweet() {
+        let submitBtn = document.getElementById("submit");
+        try {
+          let content = document.getElementById("content").value;
+          let tone = document.getElementById("tone").value;
+          let number_of_tweets =
+            document.getElementById("number_of_tweets").value;
+          if (!content || !tone || !number_of_tweets) {
+            alert("Please fill up content, tone and number of tweets");
+            return;
+          }
+          if (number_of_tweets > 10) {
+            alert("Maximum number of tweets is 10");
+            return;
+          }
+          submitBtn.innerText = "Generating...";
+          const res = await axios.post("/generate-tweets", {
+            content,
+            tone,
+            number_of_tweets,
+          });
+          submitBtn.innerText = "Generate Tweets";
+          localStorage.setItem(
+            "answers",
+            JSON.stringify(res.data.data.answers)
+          );
+          window.location.assign("/result");
+        } catch (error) {
+          submitBtn.innerText = "Generate Tweets";
+          alert("Server Error. Try again later");
+        }
+      }
+    </script>
+  </body>
+</html>

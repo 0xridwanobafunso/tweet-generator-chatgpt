@@ -1,0 +1,25 @@
+{
+  "name": "tweet-generator-chatgpt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "start": "tsx main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.17",
+    "chatgpt": "^5.2.5",
+    "express": "^4.18.2",
+    "isomorphic-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^3.12.7"
+  }
+}
